@@ -8,6 +8,7 @@ import {
   genericErrorHandler,
   notFoundErrorHandler,
 } from "./errorHandlers.js";
+import categoriesRouter from "./category/index.js";
 
 const server = Express();
 const port = process.env.PORT || 3001;
@@ -18,6 +19,7 @@ server.use(Express.json());
 
 // ****************************** ENDPOINTS *******************************
 server.use("/products", productsRouter);
+server.use("/category", categoriesRouter);
 
 // *************************** ERROR HANDLERS *****************************
 server.use(badRequestErrorHandler);
