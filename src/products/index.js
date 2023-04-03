@@ -125,4 +125,33 @@ productsRouter.post("/productId/reviews", async (req, res, next) => {
   }
 });
 
+usersRouter.get("/:userId/experiences", async (req, res, next) => {
+  try {
+    const user = await UsersModel.findByPk(req.params.userId, {
+      include: {
+        model: ExperienceModel,
+        where: { title: { [Op.iLike]: "%react%" } },
+      },
+    });
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+usersRouter.get("/:userId/posts", async (req, res, next) => {
+  try {
+    const user = await UsersModel.findByPk(req.params.userId, {
+      include: {
+        model: BlogsModel,
+        attributes: ["title"],
+        where: { title: { [Op.iLike]: "%react%" } },
+      },
+    });
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default productsRouter;
